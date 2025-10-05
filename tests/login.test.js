@@ -2,9 +2,14 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export const options = {
-  // quantos usuarios virtuais que eu quero:
-    vus: 10,
-    duration: '30s',
+  // lista de objetos com duas proriedades: target > qdt de usuarios
+    stages: [
+      {duration: '10s', target: 10 },
+      {duration: '20s', target: 10 },
+      {duration: '10s', target: 30 },
+      {duration: '20s', target: 30 },
+      {duration: '20s', target: 0 }
+    ],
 
     //tempo que cada requisição HTTP levou para ser concluída
     thresholds: {
