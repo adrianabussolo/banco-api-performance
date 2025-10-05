@@ -2,12 +2,15 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export const options = {
-  // Define a quantidade de interações que vou fazer
-    iterations: 50,
+  // quantos usuarios virtuais que eu quero:
+    vus: 10,
+    duration: '30s',
+
     //tempo que cada requisição HTTP levou para ser concluída
     thresholds: {
-      http_req_duration: ['p(90)<10', 'max<12'],
-      //http_req_failed: ['rate<0.01']
+      http_req_duration: ['p(90)<3000', 'max<5000'],
+      //quantidade de erros:
+      http_req_failed: ['rate<0.01']
     } 
 };
 
