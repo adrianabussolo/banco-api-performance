@@ -2,6 +2,7 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 //import { sleep } from 'k6';
 import { obterToken } from '../helpers/autenticacao.js';
+import { pegarBaseURL } from '../utils/variaveis.js'
 
 
 export const options = {
@@ -11,7 +12,11 @@ export const options = {
 export default function() {
   const token = obterToken()
 
-  const url = 'http://localhost:3000/transferencias'; // passando a URL
+  //const url = 'http://localhost:3000/transferencias'; // passando a URL
+
+  // para que venha de uma variavel de ambiente - para qdo for utilizar o ambiente local, use localhost, se for outro ambiente, colar ali
+  //k6 run tests/transferencias.test.js -e BASE_URL=h://localhost:3000
+  const url = pegarBaseURL() + '/transferencias';
 
   const payload = JSON.stringify({
       contaOrigem: 1,
